@@ -21,7 +21,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 - **季度末/半年末，集中判断一批项目继续还是砍** → [gates](references/gates.md)
 - **项目做完了/想砍了**，直接丢着不踏实 → [close](references/close.md)
 - **进入执行阶段**：要任务台账/问题清单/工程记忆/文档同步/冷启动怎么读项目 → [execution-governance](references/execution-governance.md)
-- **执行期要改东西/跑批量/同步文档/评审改进**：变更分级 L0/L1/L2、批量断点、存储分工 → [execution-ops](references/execution-ops.md)
+- **执行期要改东西/跑批量/同步文档/评审改进/多项目并行评审**：变更分级 L0/L1/L2、批量断点、存储分工、并行委托判断 → [execution-ops](references/execution-ops.md)
 - **反触发**：一两天能做完、单线程、无长期归档需求的小任务，不必走本技能。
 
 ## 三层架构
@@ -48,6 +48,11 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 | **阶段门** | 阶段间"检查点"：到点回答继续/卡住/砍掉，是真决策不是汇报。 |
 | **Go/Conditional/Hold/Kill** | 门决策四档：通过/带条件通过/卡住/砍掉。 |
 | **ADR** | 把关键决策和"为什么"写下来，半年后不后悔。 |
+| **RACI** | 谁执行(R)/谁拍板(A)/被咨询(C)/被告知(I)；个人场景简化为"我=R=A"。 |
+| **项目状态五档** | Active 在做 / Completed 完成 / Cancelled 取消不回头 / On Hold 暂停 / To Be Started 待启动。 |
+| **活跃项目 7±2** | 同时推进的 Active 项目控制在 5–9 个，超了就砍或暂停，否则每个都做不好。 |
+| **工程记忆** | 把散在 ADR/SOP/代码里的稳定结论"编译"成少量高密度 concept（结论+指针），新会话快速恢复。 |
+| **Won't Fix** | 记录已验证"做不通"的方向和原因，避免未来的自己/别的 AI 重复踩坑。 |
 
 ## 文件指引（按需读，不要一次全读）
 
@@ -59,7 +64,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 | 季度集中评审、过阶段门 | `references/gates.md` | 门决策记录、评审 Checklist |
 | 做完/砍掉怎么收尾归档 | `references/close.md` | 退役总结、关闭 Checklist |
 | 执行期搭治理骨架、新会话冷启动 | `references/execution-governance.md` | TASK_STATUS、ISSUES、工程记忆、项目级 AGENTS、冷启动/续接双路径 |
-| 执行期改文件/跑批量/同步/评审 | `references/execution-ops.md` | 变更分级 L0/L1/L2、批量断点、文档同步、存储分工 |
+| 执行期改文件/跑批量/同步/评审/判断要不要并行 | `references/execution-ops.md` | 变更分级 L0/L1/L2、批量断点、文档同步、存储分工、多智能体并行判断 |
 | 一次性复制所有模板 | `references/templates.md`、`references/templates-execution.md` | 全模板索引（含交接档 handoff） |
 
 ## 与其它技能的边界（只点能力名）
