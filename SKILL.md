@@ -60,14 +60,14 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 | 你要 | 读 | 用模板 |
 |---|---|---|
 | 盘所有项目、定优先级、季度重排 | `references/portfolio.md` | 台账表、PPM 评分法 |
-| 新项目启动、写总纲、搭目录 | `references/initiate.md` | 总纲模板、目录模板 |
+| 新项目启动、写总纲、搭目录、创建标配文件 | `references/initiate.md` | 总纲模板、双层目录模板（六槽位+工程扩展层）、标配文件清单、创建Checklist、**项目创建后使用指南**（文档角色表/读取顺序/扩展规则/自由发挥空间/全局AGENTS协作） |
 | 产品/业务类项目论证商业可行性、怎么赚钱 | `references/brd.md` | BRD 轻量模板、BRD/Charter/PRD 边界 |
 | 定"什么自己拍板、什么暂停重评" | `references/monitor.md` | 治理卡、ADR、风险登记册 |
 | 季度集中评审、过阶段门 | `references/gates.md` | 门决策记录、评审 Checklist |
 | 做完/砍掉怎么收尾归档 | `references/close.md` | 退役总结、关闭 Checklist |
-| 执行期搭治理骨架、新会话冷启动 | `references/execution-governance.md` | TASK_STATUS、ISSUES、工程记忆、项目级 AGENTS、冷启动/续接双路径 |
+| 执行期搭治理骨架、新会话冷启动、治理目录位置约定 | `references/execution-governance.md` | TASK_STATUS、ISSUES、工程记忆、项目级 AGENTS、冷启动/续接双路径、**六槽位vs docs/分层二选一约定** |
 | 执行期改文件/跑批量/同步/评审/判断要不要并行 | `references/execution-ops.md` | 变更分级 L0/L1/L2、批量断点、文档同步、存储分工、多智能体并行判断 |
-| 一次性复制所有模板 | `references/templates.md`、`references/templates-execution.md` | 全模板索引（含交接档 handoff） |
+| 一次性复制所有模板（生命周期+标配文件+执行期） | `references/templates.md`、`references/templates-execution.md` | 全模板索引：目录/总纲/治理卡/ADR/台账/门决策/退役 + **README/PROFILE/.gitignore/DIRECTORY_STRUCTURE/DOCUMENTATION_MAP** + **SOP/REQUIREMENTS/WORKFLOW** + TASK_STATUS/ISSUES/记忆/AGENTS/交接档 |
 
 ## 与其它技能的边界（只点能力名）
 

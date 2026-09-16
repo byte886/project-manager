@@ -17,6 +17,25 @@
 
 **原则**：从 TASK_STATUS + ISSUES 开始，项目长大到需要时再加；每个模式启用时在 TASK_STATUS 记录"已启用 XX 模式"。
 
+### 治理目录位置约定（六槽位 vs docs/ 分层，二选一统一）
+
+项目治理文件（TASK_STATUS / ISSUES / ADR / 工程记忆 / 规范）有两种放法，**选一种就统一，不要并存**：
+
+| 治理文件 | 轻量项目（六槽位） | 工程项目（docs/ 分层） |
+|---|---|---|
+| TASK_STATUS / ISSUES | `03_进行中的任务/` | `project-management/active/` |
+| ADR 决策记录 | `02_决策记录/` | `docs/project-management/decisions/` |
+| 工程记忆 | （可选，放 `02_决策记录/` 旁） | `docs/project-management/memory/` |
+| 规范文档 | （可选，放 `02_决策记录/` 旁） | `docs/project-management/standards/` |
+| 治理卡 | `02_决策记录/治理卡.md` | `02_决策记录/治理卡.md`（治理卡保留在六槽位，不迁移） |
+
+**选择规则**：
+- 纯调研/文档型项目、无代码 → 用六槽位，不建 docs/project-management/
+- 有代码/数据/脚本的工程项目 → 推荐用 docs/ 分层；启用后把 02/03 里的内容迁移过去，原位置留指针文件说明"已迁移至 xxx"
+- 治理卡始终在 `02_决策记录/治理卡.md`，不随 ADR 迁移
+
+**为什么分两处**：六槽位是"项目管理层"（总纲/产出/决策/任务/素材/复盘），docs/ 是"工程文档层"（技术文档+治理文档）。工程项目文档多，按 development/project-management 分层更清晰；轻量项目文档少，六槽位足够。
+
 ---
 
 ## 一、工程记忆体系（project-memory bundle）
