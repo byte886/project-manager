@@ -9,6 +9,7 @@
 |---|---|---|---|
 | 目录结构模板 | initiate 启动 | 启动 SOP 第 5 步：按目录建结构 | [initiate.md](initiate.md) |
 | 项目总纲（Project Charter） | initiate 启动 | 启动 SOP 第 3 步：写一页项目总纲 | [initiate.md](initiate.md) |
+| BRD 商业需求文档（产品/业务类可选） | initiate 启动 | 启动 SOP 第 3 步：总纲后论证商业可行性 | [brd.md](brd.md) |
 | 创建 Checklist | initiate 启动 | 启动 SOP 收尾自检 | [initiate.md](initiate.md) |
 | 治理卡 | monitor 监控 | 启动 SOP 第 7 步 + 日常治理 | [monitor.md](monitor.md) |
 | 决策记录（ADR） | monitor 监控 | 启动 SOP 第 8 步 + 关键决策时 | [monitor.md](monitor.md) |

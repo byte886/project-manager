@@ -16,6 +16,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 ## 什么时候用 / 反触发
 
 - **新项目启动**（新站/新调研/新课程/新业务线），不知怎么立项、目录怎么搭 → [initiate](references/initiate.md)
+- **产品/业务/对外收费类项目，要先论证"值不值得做、怎么赚钱"** → 立项后写一页 [BRD 商业需求文档](references/brd.md)（Charter 管项目、BRD 管生意、PRD 管产品）
 - **项目太多、脑子里一团浆糊**，想盘哪些在做、该砍哪个 → [portfolio](references/portfolio.md)
 - **做着做着开始失控**：不知道能拍板什么、什么情况该喊停 → [monitor](references/monitor.md)
 - **季度末/半年末，集中判断一批项目继续还是砍** → [gates](references/gates.md)
@@ -60,6 +61,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 |---|---|---|
 | 盘所有项目、定优先级、季度重排 | `references/portfolio.md` | 台账表、PPM 评分法 |
 | 新项目启动、写总纲、搭目录 | `references/initiate.md` | 总纲模板、目录模板 |
+| 产品/业务类项目论证商业可行性、怎么赚钱 | `references/brd.md` | BRD 轻量模板、BRD/Charter/PRD 边界 |
 | 定"什么自己拍板、什么暂停重评" | `references/monitor.md` | 治理卡、ADR、风险登记册 |
 | 季度集中评审、过阶段门 | `references/gates.md` | 门决策记录、评审 Checklist |
 | 做完/砍掉怎么收尾归档 | `references/close.md` | 退役总结、关闭 Checklist |
