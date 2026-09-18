@@ -169,6 +169,7 @@
 - [ ] DOCUMENTATION_MAP.md 已更新（新增文档已加入、链接有效）
 - [ ] WORKFLOW.md 已更新（如流程变更）
 - [ ] REQUIREMENTS.md 已更新（如需求变更）
+- [ ] 链接全量扫描通过：markdown 链接 / 正文路径式引用 / 目录树 0 真实断链（移动/改名后必跑；方法见 templates-standards §5.3.1）
 
 ## 三、目录结构同步
 - [ ] DIRECTORY_STRUCTURE.md 已更新
@@ -181,6 +182,7 @@
 ## 五、工程记忆同步（如稳定结论变更）
 - [ ] memory/index.md 已更新
 - [ ] 相关 concept 已修订
+- [ ] index 登记的 concept 实际存在、来源链接可达（无"承诺了没建"的空条目）
 
 ## 六、ADR 决策记录（如重要决策）
 - [ ] 重要决策已记录到 ADR-xxx.md

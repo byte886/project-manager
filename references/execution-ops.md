@@ -61,13 +61,13 @@
 
 ### 六大检查项
 1. **任务状态**：TASK_STATUS / ISSUES 已更新。
-2. **文档关联**：DOCUMENTATION_MAP、WORKFLOW、REQUIREMENTS 同步。
+2. **文档关联**：DOCUMENTATION_MAP、WORKFLOW、REQUIREMENTS 同步；移动/改名后跑链接全量扫描（markdown 链接 + 正文路径式引用 + 目录树，方法见 [templates-standards.md](templates-standards.md) §5.3.1），0 真实断链。
 3. **目录结构**：DIRECTORY_STRUCTURE 与 .gitignore 同步。
 4. **工具脚本**：新增/删除脚本进/出文档地图，参数变更进 SOP。
-5. **工程记忆**：稳定结论变更时 memory/index 与相关 concept 同步。
+5. **工程记忆**：稳定结论变更时 memory/index 与相关 concept 同步；index 登记的 concept 实际存在。
 6. **ADR**：重要决策记录且状态正确。
 
-可勾选模板见 [templates-execution.md](templates-execution.md)。快速命令：`git status`；`grep -r "TODO\|待补充" docs/`；`find . -type d -empty -not -path "./.git/*"`。
+可勾选模板见 [templates-execution.md](templates-execution.md)。快速命令：`git status`；`grep -r "TODO\|待补充" docs/`；`find . -type d -empty -not -path "./.git/*"`；链接扫描脚本见 [templates-standards.md](templates-standards.md) §5.3.1。
 
 **原则**：问题驱动更新；本地文档为主；不抄易变计数；稳定结论指针化；提交前必跑。
 

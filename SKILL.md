@@ -24,6 +24,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 - **进入执行阶段**：要任务台账/问题清单/工程记忆/文档同步/冷启动怎么读项目 → [execution-governance](references/execution-governance.md)
 - **执行期要改东西/跑批量/同步文档/评审改进/多项目并行评审**：变更分级 L0/L1/L2、批量断点、存储分工、并行委托判断 → [execution-ops](references/execution-ops.md)
 - **工程项目要补"常规规范文档"**：环境配置、命名规范、编码规范、文档写作规范、质量验证、状态查询协议、任务报告/测试/验证/整改模板 → [templates-standards](references/templates-standards.md)
+- **文档体系要体检/瘦身**：查断链、内容重叠、目录/改名后引用没跟上、文档过时、冷启动链走不通、记忆 bundle 对不上 → [templates-standards](references/templates-standards.md) §5/§8（只读体检先出报告，确认后再改）
 - **反触发**：一两天能做完、单线程、无长期归档需求的小任务，不必走本技能。
 
 ## 三层架构
@@ -69,7 +70,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS
 | 做完/砍掉怎么收尾归档 | `references/close.md` | 退役总结、关闭 Checklist |
 | 执行期搭治理骨架、新会话冷启动、治理目录位置约定 | `references/execution-governance.md` | TASK_STATUS、ISSUES、工程记忆、项目级 AGENTS、冷启动/续接双路径、**六槽位vs docs/分层二选一约定** |
 | 执行期改文件/跑批量/同步/评审/判断要不要并行 | `references/execution-ops.md` | 变更分级 L0/L1/L2、批量断点、文档同步、存储分工、多智能体并行判断 |
-| 工程项目补常规规范文档（环境/命名/编码/文档规范/质量验证/状态查询）与过程件模板（报告/测试/验证/整改/CHANGELOG） | `references/templates-standards.md` | SYSTEM_REQUIREMENTS、NAMING_CONVENTION、CODE_STYLE、DOCUMENTATION_GUIDE、变更驱动与健康度体检、STATUS_QUERY、QA、结构维护去留判据、REPORT/TEST/VERIFICATION/REFACTOR_PLAN 模板 |
+| 工程项目补常规规范文档（环境/命名/编码/文档规范/质量验证/状态查询）与过程件模板（报告/测试/验证/整改/CHANGELOG） | `references/templates-standards.md` | SYSTEM_REQUIREMENTS、NAMING_CONVENTION、CODE_STYLE、DOCUMENTATION_GUIDE、变更驱动矩阵、文档健康度体检（断链扫描/重叠矩阵/导航链/记忆 bundle 检查）、STATUS_QUERY、QA、结构维护去留判据、REPORT/TEST/VERIFICATION/REFACTOR_PLAN 模板 |
 | 一次性复制所有模板（生命周期+标配文件+执行期+工程规范） | `references/templates.md`、`references/templates-execution.md`、`references/templates-standards.md` | 全模板索引：目录/总纲/治理卡/ADR/台账/门决策/退役 + **README/PROFILE/.gitignore/DIRECTORY_STRUCTURE/DOCUMENTATION_MAP** + **SOP/REQUIREMENTS/WORKFLOW** + TASK_STATUS/ISSUES/记忆/AGENTS/交接档 + **SYSTEM_REQUIREMENTS/命名/编码/文档规范/QA/状态查询 + 报告/测试/验证/整改/CHANGELOG** |
 
 ## 与其它技能的边界（只点能力名）

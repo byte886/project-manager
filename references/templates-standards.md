@@ -385,7 +385,8 @@ find . -name "*.md" -not -path "*/.git/*" -exec wc -l {} \; | sort -rn | head -1
 
 **变更后检查清单**：
 - [ ] DOCUMENTATION_MAP 已更新
-- [ ] 全部引用已更新（grep 验证，0 真实断链）
+- [ ] 全部引用已更新、0 真实断链——**三类引用都要查**：markdown 链接、正文路径式引用（反引号/纯文本里的 `docs/x.md`）、目录树与纯文本里的文件名；扫描方法见 §5.3.1
+- [ ] 跨目录移动后相对链接层级（`../`）已重算；全仓 grep 旧文件名 0 残留（含根目录、治理目录、记忆目录，不只 grep `docs/`）
 - [ ] 涉及目录变更时 DIRECTORY_STRUCTURE 已更新、空目录已清
 - [ ] 新增文件类型时 .gitignore 已检查
 - [ ] commit message 记录了变更内容和联动动作
@@ -397,20 +398,81 @@ find . -name "*.md" -not -path "*/.git/*" -exec wc -l {} \; | sort -rn | head -1
 |------|--------|------|
 | 完整性 | 所有文档在 DOCUMENTATION_MAP 有登记 | grep 文档名 |
 | 完整性 | 新文档有类型标注（类型/更新频率/读者） | `head -10` |
-| 关联性 | 链接有效、无文档孤岛（没被任何文档引用） | 链接检查 + `grep -r "文档名" --include="*.md" .` |
+| 关联性 | 链接有效、无文档孤岛（没被任何文档引用） | §5.3.1 全量扫描 + `grep -r "文档名" --include="*.md" .` |
+| 关联性 | 冷启动/续接路径逐跳可达、高频场景能定位到文档 | 按 execution-governance §四走一遍；抽 3-5 个高频场景实测 |
 | 结构 | 目录与 DIRECTORY_STRUCTURE 一致、无空目录 | 对比 + `find . -type d -empty` |
 | 结构 | 命名符合 NAMING_CONVENTION（类型↔风格一致） | 人工/脚本对照决策树 |
-| 质量 | 无两文档讲同一件事的重叠 | 关键词搜索 + 人工审查 |
+| 质量 | 无两文档讲同一件事的重叠 | 建「主题 × 文档」重叠矩阵：每主题定唯一权威源、其余改链接；重点查项目目标/架构图/目录树/存储分工/路线图待办/平台状态/快速开始/常用命令 |
 | 质量 | 无 >500 行且跨领域文档 | `wc -l` |
 | 质量 | 无"正确的废话"、AI 套话、模板化表达 | 逐段看是否有独立信息增量 |
 | 质量 | 术语一致、表述准确、结论有依据 | 与 ADR/规范对照 |
 | 质量 | 无空标题/空章节（叶子标题下无正文） | 人工审查 |
 | 维护 | .gitignore 合理（新文件类型已覆盖） | 审查 |
 | 维护 | 核心文档（README/AGENTS/WORKFLOW/TASK_STATUS）与实际一致 | 对比现状 |
+| 维护 | 易变计数/状态（数量、进度%、接入状态）只在唯一权威台账出现，他处只放指针 | 现场复算；同一数字跨文档不一致即判失败 |
+| 维护 | 活态文档之间、活态文档与现状零矛盾（命令/路径/参数/状态同一口径，AGENTS 与各 SOP 不得两处说法）；编年体（ADR/CHANGELOG/历史报告）只增不改、被取代只加演进注记 | 交叉核对 AGENTS↔SOP + 对比现状 + 抽查 ADR |
+| 维护 | 工程记忆 bundle：index 登记的 concept 全部存在、只放结论+指针、无易变状态、来源链接可达 | 对照 memory/index 逐项核 |
 
 **问题分级处理**：小问题（断链、过时数字、漏登记、错字）当场修；
 结构性/拿不准的（目录改名、文档拆分、流程/hook 变更）列方案先确认（L1/L2，见 [execution-ops.md](execution-ops.md) §一）；
 用户要求"只读体检"则一律不改，只出报告。改后用不同方式复扫（重跑检查、断链扫描）确认无回退。
+
+#### 5.3.1 链接全量扫描法（移动/改名后必跑）
+
+文档引用有三种形态，只 grep 旧文件名会漏：
+1. **markdown 链接** `[文字](相对路径)`——跨目录移动后相对层级（`../`）最易断；
+2. **正文路径式引用**——反引号或纯文本里的 `docs/xxx.md`（常见于 AGENTS 路径表、README 目录树说明）；
+3. **ASCII 目录树/纯文本里的文件名**——不随移动自动更新。
+
+前两类用下面脚本一次扫完（python3 三平台通用；一次性粘贴运行即可、不必入库，长期复用再放 `scripts/` 并登记 MAP）：
+
+```python
+#!/usr/bin/env python3
+"""文档链接体检：扫 markdown 相对链接与正文路径式引用，报告断链。
+在项目根目录运行：python3 check_doc_links.py
+两种路径写法都认：相对当前文件（markdown 标准）、相对仓库根（docs/... 反引号惯例），
+两种基准都找不到才报断链。PATH_REFS 顶层目录前缀按本项目实际增删。"""
+import os, re, sys, urllib.parse
+LINK = re.compile(r'\[[^\]]*\]\(([^)#]+)(?:#[^)]*)?\)')
+PATH_REFS = re.compile(r'`?((?:docs|scripts|project-management)/[A-Za-z0-9_\-/\u4e00-\u9fff]+\.md)`?')
+SKIP = (".git", "node_modules", "venv", ".venv", "data", "workspace", "library")
+
+def alive(dp, url):
+    p = urllib.parse.unquote(url)
+    return os.path.exists(os.path.normpath(os.path.join(dp, p))) or \
+           os.path.exists(os.path.normpath(p.lstrip("./")))  # 同时兼容根相对写法
+
+broken = {}
+for dp, dns, fns in os.walk("."):
+    dns[:] = [d for d in dns if d not in SKIP]
+    for fn in fns:
+        if not fn.endswith(".md"):
+            continue
+        fp = os.path.join(dp, fn)
+        for i, line in enumerate(open(fp, encoding="utf-8"), 1):
+            refs = [("链接", u) for u in LINK.findall(line)] + \
+                   [("路径", u) for u in PATH_REFS.findall(line)]
+            for kind, url in refs:
+                url = url.strip().strip("`")
+                if url.startswith(("http://", "https://", "#", "mailto:")):
+                    continue
+                if not alive(dp, url):
+                    broken.setdefault((fp, i, url), set()).add(kind)
+print(f"断链 {len(broken)} 处")
+for (fp, i, url), kinds in sorted(broken.items()):
+    print(f"  [{'/'.join(sorted(kinds))}] {fp}:{i} -> {url}")
+sys.exit(1 if broken else 0)
+```
+
+第三类（目录树/纯文本旧名残留）改名或移动后用全仓旧名 grep 兜底，**范围必须含根目录、治理目录、记忆目录**，不能只 grep `docs/`：
+
+```bash
+git ls-files '*.md' | xargs grep -n "旧文件名"     # 每个旧 basename 过一遍
+```
+
+注意：
+- 模板文件（`*_TEMPLATE.md`）里的占位链接是示例、不是断链，扫描结果逐一甄别，别误改模板；
+- 跨目录移动的文件重点核对 `../` 层数；修完按"改后复扫"再跑一遍，确认 0 残留才提交。
 
 ### 5.4 体检报告模板（过程件，默认落 `data/_workspace/`，不入库）
 
@@ -642,7 +704,7 @@ find . -name "*.md" -not -path "*/.git/*" -exec wc -l {} \; | sort -rn | head -1
 2. **先修依据**：命名/结构规则本身有矛盾时，先改 SSOT 规范并自洽复核。
 3. **出整改方案**：老名/新名/依据/影响面（被哪些文件引用）四列全量清单（用 REFACTOR_PLAN_TEMPLATE）。
 4. **用户确认（硬门）**：未确认不执行任何 git mv/删除。
-5. **执行**：git mv 保留历史 + 全量级联更新引用/目录树/.gitignore。
+5. **执行**：git mv 保留历史 + 全量级联更新引用/目录树/.gitignore；**跨目录移动必须重算相对链接层级（`../`），正文路径式引用与目录树一并改**，改完跑 §5.3.1 链接扫描。
 6. **回归验证**：旧名活文档 0 残留、0 真实断链、类型↔命名 0 不自洽、目录树与实际一致、汇总数字由明细现算。
 7. **记录收尾**：CHANGELOG 记一条，过程清单归档；本地改完待验收后再 push。
 ```
