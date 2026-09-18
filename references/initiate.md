@@ -74,12 +74,16 @@
 ├── 📁 docs/                   ← 工程文档（静态：方法论/规范/流程/模板/API）
 │   ├── WORKFLOW.md            ← 工作流总纲（各环节SOP的入口和链接）
 │   ├── REQUIREMENTS.md        ← 需求与验收标准（功能范围/验收标准/不做什么）
+│   ├── SYSTEM_REQUIREMENTS.md ← 系统要求与环境配置（平台/版本/检查命令/换机复现）
 │   ├── DIRECTORY_STRUCTURE.md ← 目录结构详细说明（存储分工/各目录职责）
 │   ├── DOCUMENTATION_MAP.md   ← 文档地图（所有文档的快速入口，先读这个）
+│   ├── development/
+│   │   ├── guides/            ← 方法/操作类 SOP（小写 kebab-case 命名）
+│   │   └── templates/         ← 过程件模板（任务报告/测试计划/验证报告/整改清单）
 │   └── project-management/
 │       ├── decisions/         ← ADR决策记录（只增不改）
 │       ├── memory/            ← 工程记忆（跨会话稳定结论，结论+指针）
-│       └── standards/         ← 规范文档（命名/质量/编码/文档同步检查清单等）
+│       └── standards/         ← 规范文档（命名/编码/文档写作/质量验证/状态查询等）
 ├── 📁 .secrets/               ← 加密凭证（*.enc入库，明文*.json/*.txt已gitignore）
 ├── 📄 CHANGELOG.md            ← 变更日志（可选，中大型项目建议加）
 └── 📄 LICENSE                 ← 开源协议（可选，公开仓建议加 MIT/Apache）
@@ -108,7 +112,8 @@
 ### 工程扩展层的设计依据（从高顿/内容流水线等成熟项目提炼）
 
 - **data/ 三层分离**：raw（原始只读）/ processed（处理后）/ _workspace（运行时过程件），避免过程件污染成品
-- **docs/ 双轨**：development（技术文档）+ project-management（治理文档：decisions/memory/standards），工程和治理分离
+- **docs/ 双轨**：development（技术文档：guides 方法 SOP + templates 过程件模板）+ project-management（治理文档：decisions/memory/standards），工程和治理分离
+- **standards/ 规范层**：命名、编码、文档写作、质量验证、状态查询等"必须遵守什么"沉淀于此；模板见 [templates-standards.md](templates-standards.md)，中大型项目按需启用、不要一上来全搭
 - **.secrets/ 加密凭证**：明文不入库，加密后的 *.enc 可入库，换机后解密即可
 - **config/ 与代码分离**：配置集中管理，环境差异用 local_*.py 覆盖且不入库
 - **project-management/active/**：活态台账（TASK_STATUS+ISSUES）独立于 docs/（静态文档），频繁更新的文件不混进静态文档区
@@ -190,7 +195,8 @@
 - [ ] ADR 位置已统一（要么 02_决策记录/，要么 docs/project-management/decisions/，不同时存在）
 - [ ] .secrets/ 已建，.gitignore 已排除明文（*.json/*.txt），只入库 *.enc
 - [ ] config/local_*.py 已在 .gitignore（本地密钥不入库）
-- [ ] docs/ 标配文档已建：WORKFLOW.md、REQUIREMENTS.md、DIRECTORY_STRUCTURE.md、DOCUMENTATION_MAP.md
+- [ ] docs/ 标配骨架已建：WORKFLOW、REQUIREMENTS、SYSTEM_REQUIREMENTS、DIRECTORY_STRUCTURE、DOCUMENTATION_MAP（5 个；小项目 SYSTEM_REQUIREMENTS 可后补）
+- [ ] 中大型项目按需建 standards/ 规范（命名/编码/文档写作/质量验证/状态查询）与 development/templates/ 过程件模板，模板见 [templates-standards.md](templates-standards.md)
 - [ ] git init 完成，首次提交已做，远程仓库已关联（如需要）
 
 ## 飞书知识库创建操作指引
@@ -224,8 +230,12 @@
 | **00_项目总纲.md** | 人+AI | 项目章程：目标/期限/成功标准/当前状态/治理卡指针 | 了解项目定位和进度 | 状态/里程碑变更时更新 |
 | **docs/WORKFLOW.md** | AI | 工作流总纲：阶段流水线/校验门/全局规则/SOP链接 | 执行任务前 | 流程变更时更新 |
 | **docs/REQUIREMENTS.md** | 人+AI | 需求唯一权威源：功能清单/验收标准/不做什么/开放问题 | 明确要做什么时 | 需求变更时更新 |
+| **docs/SYSTEM_REQUIREMENTS.md** | AI+人 | 环境配置：平台兼容/工具版本/检查命令/换机复现步骤 | 搭环境、换机器、命令报错时 | 工具链变更时更新 |
 | **docs/DIRECTORY_STRUCTURE.md** | AI | 目录结构详细说明：存储分工/各目录职责/命名规则 | 不确定文件放哪时 | 目录变更时更新 |
 | **docs/DOCUMENTATION_MAP.md** | AI+人 | 文档地图：按场景快速入口/文档完整清单/工具清单 | 找文档时 | 新增/删除文档时必须更新 |
+| **standards/ 规范层**（NAMING_CONVENTION / CODE_STYLE / DOCUMENTATION_GUIDE / QUALITY_ASSURANCE / PROJECT_STATUS_QUERY 等） | AI | "必须遵守什么"：命名/编码/文档写法/验证标准/查询应答协议 | 命名、写代码、写文档、交付验证、回答状态查询时 | 规范变更时更新（中大型项目按需建） |
+| **development/templates/ 过程件模板**（REPORT / TEST_PLAN / VERIFICATION / REFACTOR_PLAN） | AI | 一次任务/测试/验证/整改怎么留痕的复制骨架 | 生成报告、测试计划、验证、批量整改时 | 模板演进时更新；实例落 data/_workspace 不入库 |
+| **CHANGELOG.md** | AI+人 | 项目层面显著变更的编年摘要（倒序、只增不改） | 了解"发生过什么变更"时 | 结构/流程/规范/功能显著变更时 |
 | **TASK_STATUS.md** | AI+人 | 当前进度真相：做什么/到哪/下一步/工单清单 | 了解当前状态 | 任务开始/完成/遇阻时立即更新 |
 | **ISSUES.md** | AI+人 | 问题清单：开放问题/已解决/Won't Fix（做不通的方向） | 遇到问题时 | 发现/解决问题时 |
 | **ADR（决策记录）** | AI+人 | 关键决策和"为什么"，只增不改 | 做重要决策前查历史 | 关键决策时新增 |
@@ -270,14 +280,14 @@
 - 新增目录前先问：这个目录的内容能不能放进已有目录？能就不要新建。
 
 **加新文档**：
-- 新增文档必须在 `DOCUMENTATION_MAP.md` 中登记（按场景快速入口 + 文档完整清单两处都要加）。
-- 文档命名：`<主题>_<类型>.md`，如 `数据下载_SOP.md`、`知识库组织方案.md`。
-- 文档开头必须有元信息头：文档类型、更新频率、读者、最后更新日期。
+- 新增前先 grep 确认没有同类文档（防重复建设）；新增后必须在 `DOCUMENTATION_MAP.md` 中登记（场景快速入口 + 文档完整清单两处都要加）。
+- 命名按 NAMING_CONVENTION 决策树：规范/模板/台账用 UPPER_SNAKE_CASE，方法/操作文档用小写 kebab-case，脚本 snake_case，中文成品对应 H1（模板见 [templates-standards.md](templates-standards.md) §2）。
+- 文档开头必须有元信息头：文档类型（7 类封闭词表）、更新频率、读者。
 - 不要创建"临时文档"——临时想法写进 TASK_STATUS 或 ISSUES，确认有长期价值再升级为正式文档。
 
 **加新 SOP**：
 - SOP 只用于**重复性操作**（每周/每天都要做的事）。一次性操作不需要 SOP，写进 TASK_STATUS 即可。
-- SOP 命名：`<动作>_SOP.md`，放 `docs/` 根目录。
+- SOP 是方法性文档，命名用小写 kebab-case（如 `data-download.md`、`wiki-sync-sop.md`），放 `docs/development/guides/`。
 - SOP 必须在 WORKFLOW.md 对应阶段的"参考文档"中登记链接。
 - SOP 模板见 templates-execution.md §8。
 

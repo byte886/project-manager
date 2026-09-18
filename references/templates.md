@@ -2,6 +2,7 @@
 
 > 一页索引：所有模板在哪、用在哪个模块、哪一步。需要哪个就去对应 reference 复制完整模板。
 > **执行期模板**（TASK_STATUS / ISSUES / 工程记忆 / 批次状态 / 文档同步清单 / 项目级 AGENTS / 交接档 handoff）见 [templates-execution.md](templates-execution.md)。
+> **工程规范与过程件模板**（SYSTEM_REQUIREMENTS / 命名 / 编码 / 文档写作 / 变更驱动与健康度 / 状态查询 / 质量验证 / 结构维护 + 报告/测试/验证/整改/CHANGELOG）见 [templates-standards.md](templates-standards.md)。
 
 ## 模板索引表
 
@@ -36,6 +37,16 @@
 | 批次状态 JSON / JSONL | 执行期动作 | 批量任务断点续传 | [templates-execution.md](templates-execution.md) §4 |
 | 文档同步检查清单 | 执行期动作 | 每次 git 提交前 | [templates-execution.md](templates-execution.md) §5 |
 | 项目交接档 handoff | 执行期治理 | 交给新会话/另一台机/另一个 AI | [templates-execution.md](templates-execution.md) §7 |
+| SYSTEM_REQUIREMENTS 系统要求 | 工程规范 | 工程扩展层启用时 | [templates-standards.md](templates-standards.md) §1 |
+| NAMING_CONVENTION 命名规范 | 工程规范 | 多文件/多脚本协作开始时 | [templates-standards.md](templates-standards.md) §2 |
+| CODE_STYLE 编码规范 | 工程规范 | 正式写代码前 | [templates-standards.md](templates-standards.md) §3 |
+| DOCUMENTATION_GUIDE 文档写作指南 | 工程规范 | 开始批量写文档前 | [templates-standards.md](templates-standards.md) §4 |
+| 文档变更驱动与健康度体检 | 工程规范 | 文档增删移动后 / 每月体检 | [templates-standards.md](templates-standards.md) §5 |
+| PROJECT_STATUS_QUERY 状态查询协议 | 工程规范 | AI 长期协作的中大型项目 | [templates-standards.md](templates-standards.md) §6 |
+| QUALITY_ASSURANCE + 验证报告模板 | 工程规范 | 定义产出物验收标准时 | [templates-standards.md](templates-standards.md) §7 |
+| 结构维护/文件去留 + 批量整改清单 | 工程规范 | 项目结构治理、批量改名时 | [templates-standards.md](templates-standards.md) §8 |
+| 任务报告 / 流程测试计划模板 | 过程件 | 单次任务留痕、新链路首跑 | [templates-standards.md](templates-standards.md) §9、§10 |
+| CHANGELOG 变更日志 | 工程规范 | 中大型项目（可选） | [templates-standards.md](templates-standards.md) §11 |
 
 ---
 
@@ -450,12 +461,16 @@ Desktop.ini
 ├── docs/                       # 工程文档
 │   ├── WORKFLOW.md             # 工作流总纲
 │   ├── REQUIREMENTS.md         # 需求与验收标准
+│   ├── SYSTEM_REQUIREMENTS.md  # 系统要求与环境配置
 │   ├── DIRECTORY_STRUCTURE.md  # 本文档
 │   ├── DOCUMENTATION_MAP.md    # 文档地图
+│   ├── development/
+│   │   ├── guides/             # 方法/操作类 SOP（小写 kebab-case）
+│   │   └── templates/          # 过程件模板（报告/测试/验证/整改）
 │   └── project-management/
 │       ├── decisions/          # ADR
 │       ├── memory/             # 工程记忆
-│       └── standards/          # 规范
+│       └── standards/          # 规范（命名/编码/文档写作/质量/状态查询等）
 ├── project-management/
 │   └── active/                 # TASK_STATUS + ISSUES（活态台账）
 ├── .secrets/                   # 加密凭证
@@ -484,11 +499,16 @@ Desktop.ini
 |---|---|---|
 | WORKFLOW.md | 工作流总纲，各环节SOP的入口和链接 | 流程变更时 |
 | REQUIREMENTS.md | 需求定义、功能范围、验收标准 | 需求变更时 |
+| SYSTEM_REQUIREMENTS.md | 平台兼容、工具版本、环境检查命令、换机复现 | 工具链变更时 |
 | DIRECTORY_STRUCTURE.md | 本文档，目录结构与存储分工 | 目录变更时 |
 | DOCUMENTATION_MAP.md | 所有文档的快速入口 | 新增/删除文档时 |
+| development/guides/ | 方法/操作类 SOP（怎么做） | 操作步骤变更时 |
+| development/templates/ | 过程件模板（任务报告/测试/验证/整改），只放空模板 | 模板演进时 |
 | project-management/decisions/ | ADR决策记录（只增不改） | 关键决策时 |
 | project-management/memory/ | 工程记忆（结论+指针） | 稳定结论变更时 |
-| project-management/standards/ | 规范文档（命名/质量/编码等） | 规范变更时 |
+| project-management/standards/ | 规范文档（命名/编码/文档写作/质量验证/状态查询/结构维护） | 规范变更时 |
+
+> standards/ 与 development/templates/ 的完整模板（含 SYSTEM_REQUIREMENTS）见 [templates-standards.md](templates-standards.md)；中大型项目按需启用，小项目不强制。
 ```
 
 ---
@@ -522,6 +542,7 @@ Desktop.ini
 | BRD | 商业需求（产品/业务类） | ../01_结论与产出/BRD_*.md |
 | PRD | 产品需求（如需要） | ../01_结论与产出/PRD_*.md |
 | 工作流 | 各环节SOP入口 | [WORKFLOW.md](WORKFLOW.md) |
+| 系统要求 | 平台兼容/工具版本/换机复现 | [SYSTEM_REQUIREMENTS.md](SYSTEM_REQUIREMENTS.md) |
 | 目录结构 | 存储分工/各目录职责 | [DIRECTORY_STRUCTURE.md](DIRECTORY_STRUCTURE.md) |
 
 ## 三、项目治理
@@ -531,7 +552,12 @@ Desktop.ini
 | 治理卡 | 决策权限/暂停重评条件/碰节奏 | ../02_决策记录/治理卡.md |
 | ADR索引 | 所有决策记录 | decisions/ |
 | 工程记忆 | 跨会话稳定结论（结论+指针） | memory/index.md |
-| 规范文档 | 命名/质量/编码/文档同步 | standards/ |
+| 命名/编码规范 | 文件命名决策树、编码风格 | standards/NAMING_CONVENTION.md、standards/CODE_STYLE.md |
+| 文档写作/健康度 | 文档类型词表、分解、变更联动、体检清单 | standards/DOCUMENTATION_GUIDE.md、standards/DOCUMENTATION_OPTIMIZATION.md |
+| 质量验证 | 产出物验证清单、分级、留痕 | standards/QUALITY_ASSURANCE.md |
+| 状态查询协议 | 模糊查询意图识别与应答格式 | standards/PROJECT_STATUS_QUERY.md |
+| 过程件模板 | 任务报告/测试计划/验证报告/整改清单 | ../development/templates/ |
+| 变更日志 | 项目层面显著变更（倒序） | ../CHANGELOG.md |
 
 ## 四、SOP / 操作指南
 
