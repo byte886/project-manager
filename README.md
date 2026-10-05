@@ -11,7 +11,8 @@
 - `SKILL.md`：技能入口、三层架构与模块路由
 - `references/`：按需细读的方法论与模板
   - 生命周期：`portfolio`（组合盘点）/ `initiate`（启动建目录）/ `monitor`（治理监控）/ `gates`（阶段门）/ `close`（收尾归档）/ `brd`（商业需求）
-  - 执行期：`execution-governance`（记忆/台账/AGENTS/冷启动）/ `execution-ops`（变更分级/批量/同步/存储）
+  - 执行期：`execution-governance`（记忆/台账/AGENTS/冷启动）/ `execution-ops`（变更分级/批量/同步/存储）/ `parallel-and-longtask`（并行调度与长任务守护）
+  - 文档写作：`agents-md-best-practices`（AGENTS.md 内容取舍与精炼）
   - 模板：`templates`（生命周期+标配文件）/ `templates-execution`（执行期台账与 SOP）/ `templates-standards`（工程规范与过程件：环境/命名/编码/文档写作/质量验证/状态查询/报告/测试/整改/CHANGELOG）
 
 ## 许可
