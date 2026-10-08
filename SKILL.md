@@ -1,97 +1,99 @@
 ---
 name: project-manager
-description: "个人/小团队多项目并行的轻量项目管理方法论：项目组合 PPM（选对项目、季度盘点、优先级、健康灯、活跃项目 7±2）、单项目生命周期（启动写总纲搭目录、执行期治理卡与决策记录、收尾归档）、阶段门 G1/G2/G3 评审。适用于新立项、项目太多要盘或要砍、失控要定拍板边界、季度集中评审、做完想收尾时。轻量版，重型指标按需启用。"
-compatibility: "纯方法论与 Markdown 模板，不随附脚本、不依赖 OS，Windows/macOS/Linux 通用、无需判平台；外部环节（飞书建空间/多维表格/终端操作）是可替换插槽，平台要求由对应工具决定。"
+description: 个人/小团队的轻量项目管理。覆盖项目全生命周期（启动、规划、执行、监控、收尾），并提供需求澄清到拆单（idea-to-tickets）、工程规范（命名/代码风格/文档/AGENTS）、文档评审与技能优化方法。适用于新项目立项、需求拆解、进度追踪、交接归档、文档与技能优化。纯方法论，跨平台通用。
+compatibility: 纯方法论，跨平台通用
 ---
 
-# project-manager · 个人项目管理方法论（PPM + 生命周期 + 阶段门，轻量版）
+# project-manager · 个人轻量项目管理
 
-## 平台适用（执行前先读）
-- 本技能是**纯方法论 + Markdown 模板**，不含可执行脚本、不依赖操作系统，Windows / macOS / Linux 均可直接使用，无需判平台。
-- 文中外部环节（飞书 lark-wiki 建空间、lark-base 建台账、浏览器/终端操作等）是可替换插槽，平台要求由对应工具决定。
-- 路径示例一律 `~` 或相对路径，不硬编码 `/Users/<用户名>`。
+> 按"你遇到什么问题"找对应文档，不用全读。
+> **总标准**：[standards/project-management-standard.md](standards/project-management-standard.md)（生命周期、个人项目管理、SOP结构的权威依据）
 
-> 一句话：**用企业级项目管理的骨架（PPM + 生命周期 + 阶段门），但把肌肉换成个人轻量做法——知道该做哪些项目、每个项目走到哪一步、什么时候停、做完怎么收。**
+---
 
-## 什么时候用 / 反触发
+## 执行原则
 
-- **新项目启动**（新站/新调研/新课程/新业务线），不知怎么立项、目录怎么搭 → [initiate](references/initiate.md)
-- **产品/业务/对外收费类项目，要先论证"值不值得做、怎么赚钱"** → 立项后写一页 [BRD 商业需求文档](references/brd.md)（Charter 管项目、BRD 管生意、PRD 管产品）
-- **项目太多、脑子里一团浆糊**，想盘哪些在做、该砍哪个 → [portfolio](references/portfolio.md)
-- **做着做着开始失控**：不知道能拍板什么、什么情况该喊停 → [monitor](references/monitor.md)
-- **季度末/半年末，集中判断一批项目继续还是砍** → [gates](references/gates.md)
-- **项目做完了/想砍了**，直接丢着不踏实 → [close](references/close.md)
-- **进入执行阶段**：要任务台账/问题清单/工程记忆/文档同步/冷启动怎么读项目 → [execution-governance](references/execution-governance.md)
-- **执行期要改东西/跑批量/同步文档/评审改进/多项目并行评审**：变更分级 L0/L1/L2、批量断点、存储分工、并行委托判断 → [execution-ops](references/execution-ops.md)
-- **工程项目要补"常规规范文档"**：环境配置、命名规范、编码规范、文档写作规范、质量验证、状态查询协议、任务报告/测试/验证/整改模板 → [templates-standards](references/templates-standards.md)
-- **文档体系要体检/瘦身**：查断链、内容重叠、目录/改名后引用没跟上、文档过时、冷启动链走不通、记忆 bundle 对不上 → [templates-standards](references/templates-standards.md) §5/§8（只读体检先出报告，确认后再改）
-- **写/改项目级 AGENTS.md**（或任何给 AI 看的操作手册），不确定该写什么、写多长、怎么写才有效 → [agents-md-best-practices](references/agents-md-best-practices.md)（非可推断测试/四类高价值内容/50-200 行/部署前 10 项检查清单）
-- **多阶段/批量任务要定并行与长任务策略**：大任务拆 DAG、并发数怎么定、单次 >8 分钟的任务怎么守护 → [parallel-and-longtask](references/parallel-and-longtask.md)
-- **反触发**：一两天能做完、单线程、无长期归档需求的小任务，不必走本技能。
+- **个人版，别搞复杂**：能用一句话说清，别写一页纸。
+- **按需读**：遇到什么问题，读对应文档。
+- **小项目反触发**：一两天能做完的小任务，README + AGENTS + 任务状态就够，不必用全套。
+- **一条信息只放一处**：其他地方放指针，避免改漏、说法打架。
 
-## 三层架构
+---
 
-| 层 | 模块 | 解决什么 | 详细 SOP |
-|---|---|---|---|
-| **L1 组合** | portfolio | 项目太多不知砍哪个、僵尸项目占名额 | [references/portfolio.md](references/portfolio.md) |
-| **L2 启动** | initiate | 新项目目标模糊、目录乱 | [references/initiate.md](references/initiate.md) |
-| **L2 监控** | monitor | 做着做着不知道能拍板什么、硬扛到爆 | [references/monitor.md](references/monitor.md) |
-| **L3 评审** | gates | 到节点判断继续/砍掉 | [references/gates.md](references/gates.md) |
-| **L2 收尾** | close | 做完/砍掉后资料散落、订阅还在扣费 | [references/close.md](references/close.md) |
-| **执行期治理** | execution-governance | 工程记忆、TASK_STATUS+ISSUES、项目级 AGENTS、冷启动/续接双路径 | [references/execution-governance.md](references/execution-governance.md) |
-| **执行期动作** | execution-ops | 变更分级 L0/L1/L2、批量任务断点、文档同步、存储分工、评审批次 | [references/execution-ops.md](references/execution-ops.md) |
-| **工程规范与过程件** | templates-standards | 环境配置/命名/编码/文档写作/质量验证/状态查询规范，任务报告/测试/验证/整改/CHANGELOG 模板 | [references/templates-standards.md](references/templates-standards.md) |
-| **AGENTS 写作** | agents-md-best-practices | 写/改项目级 AGENTS.md 的内容取舍与精炼（非可推断测试、四类高价值、篇幅控制、验收清单） | [references/agents-md-best-practices.md](references/agents-md-best-practices.md) |
-| **并行与长任务** | parallel-and-longtask | 大任务 DAG 拆解、实测定并发、事件驱动衔接、>8 分钟任务守护器范式 | [references/parallel-and-longtask.md](references/parallel-and-longtask.md) |
-| 汇总 | templates | 全部模板索引 | [references/templates.md](references/templates.md)、[references/templates-execution.md](references/templates-execution.md)、[references/templates-standards.md](references/templates-standards.md) |
+## 场景总表
 
-## 核心概念（大白话）
+### 〇、先看标准
 
-| 术语 | 大白话 |
+| 你遇到什么 | 用什么 |
 |---|---|
-| **PPM** | 不是把每个项目做快，而是**选对一篮子项目**——资源就这么多，哪些投、哪些砍。 |
-| **Project Charter** | 立项一页纸：为什么做、做成什么样算成功、什么时候完。 |
-| **项目治理** | 提前写清：什么事自己能定、什么事必须停下重评、多久碰一次头。 |
-| **健康灯** | 🟢 On Track / 🟡 At Risk / 🔴 Off Track。 |
-| **阶段门** | 阶段间"检查点"：到点回答继续/卡住/砍掉，是真决策不是汇报。 |
-| **Go/Conditional/Hold/Kill** | 门决策四档：通过/带条件通过/卡住/砍掉。 |
-| **ADR** | 把关键决策和"为什么"写下来，半年后不后悔。 |
-| **RACI** | 谁执行(R)/谁拍板(A)/被咨询(C)/被告知(I)；个人场景简化为"我=R=A"。 |
-| **项目状态五档** | Active 在做 / Completed 完成 / Cancelled 取消不回头 / On Hold 暂停 / To Be Started 待启动。 |
-| **活跃项目 7±2** | 同时推进的 Active 项目控制在 5–9 个，超了就砍或暂停，否则每个都做不好。 |
-| **工程记忆** | 把散在 ADR/SOP/代码里的稳定结论"编译"成少量高密度 concept（结论+指针），新会话快速恢复。 |
-| **Won't Fix** | 记录已验证"做不通"的方向和原因，避免未来的自己/别的 AI 重复踩坑。 |
+| 想了解项目管理标准方法、生命周期怎么分、SOP怎么写 | `standards/project-management-standard.md` |
+| 要评审/优化一批文档，需要评审标准 | `standards/document-review-standard.md` |
 
-## 文件指引（按需读，不要一次全读）
+---
 
-| 你要 | 读 | 用模板 |
-|---|---|---|
-| 盘所有项目、定优先级、季度重排 | `references/portfolio.md` | 台账表、PPM 评分法 |
-| 新项目启动、写总纲、搭目录、创建标配文件 | `references/initiate.md` | 总纲模板、双层目录模板（六槽位+工程扩展层）、标配文件清单、创建Checklist、**项目创建后使用指南**（文档角色表/读取顺序/扩展规则/自由发挥空间/全局AGENTS协作） |
-| 产品/业务类项目论证商业可行性、怎么赚钱 | `references/brd.md` | BRD 轻量模板、BRD/Charter/PRD 边界 |
-| 定"什么自己拍板、什么暂停重评" | `references/monitor.md` | 治理卡、ADR、风险登记册 |
-| 季度集中评审、过阶段门 | `references/gates.md` | 门决策记录、评审 Checklist |
-| 做完/砍掉怎么收尾归档 | `references/close.md` | 退役总结、关闭 Checklist |
-| 执行期搭治理骨架、新会话冷启动、治理目录位置约定 | `references/execution-governance.md` | TASK_STATUS、ISSUES、工程记忆、项目级 AGENTS、冷启动/续接双路径、**六槽位vs docs/分层二选一约定** |
-| 执行期改文件/跑批量/同步/评审/判断要不要并行 | `references/execution-ops.md` | 变更分级 L0/L1/L2、批量断点、文档同步、存储分工、多智能体并行判断 |
-| 工程项目补常规规范文档（环境/命名/编码/文档规范/质量验证/状态查询）与过程件模板（报告/测试/验证/整改/CHANGELOG） | `references/templates-standards.md` | SYSTEM_REQUIREMENTS、NAMING_CONVENTION、CODE_STYLE、DOCUMENTATION_GUIDE、变更驱动矩阵、文档健康度体检（断链扫描/重叠矩阵/导航链/记忆 bundle 检查）、STATUS_QUERY、QA、结构维护去留判据、REPORT/TEST/VERIFICATION/REFACTOR_PLAN 模板 |
-| 写/改项目级 AGENTS.md，拿不准写什么、写多长、怎么写有效 | `references/agents-md-best-practices.md` | 非可推断测试、四类高价值内容、不该写的内容、50-200 行结构与渐进式披露、最小模板、部署前 10 项检查 |
-| 多阶段大任务拆 DAG、定并发、守护 >8 分钟长任务 | `references/parallel-and-longtask.md` | 三种依赖模式、节点要素、实测定并发四步、事件驱动衔接、nohup 守护器范式、孤儿进程分层清理 |
-| 一次性复制所有模板（生命周期+标配文件+执行期+工程规范） | `references/templates.md`、`references/templates-execution.md`、`references/templates-standards.md` | 全模板索引：目录/总纲/治理卡/ADR/台账/门决策/退役 + **README/PROFILE/.gitignore/DIRECTORY_STRUCTURE/DOCUMENTATION_MAP** + **SOP/REQUIREMENTS/WORKFLOW** + TASK_STATUS/ISSUES/记忆/AGENTS/交接档 + **SYSTEM_REQUIREMENTS/命名/编码/文档规范/QA/状态查询 + 报告/测试/验证/整改/CHANGELOG** |
+### 一、项目生命周期
 
-## 与其它技能的边界（只点能力名）
+#### 1. 启动（lifecycle/start/）
+| 你遇到什么 | 用什么 |
+|---|---|
+| 新项目第一步做什么、建什么目录、怎么写总纲 | `lifecycle/start/initiate.md` |
 
-| 本技能负责 | 协作对象 | 怎么取舍 |
-|---|---|---|
-| 项目这一层（立项/治理/盘点/评审/收尾） | **idea-to-tickets** | 总纲里"接下来做什么"落到工单时交它 clarify→spec→slice |
-| 项目内部大量会复利的知识 | **okf-wiki** | 本技能只规定目录结构；知识沉淀按 okf-wiki，不另建记忆体系 |
-| 环境/机器层面维护 | **dual-machine-manager** | 退役时的双机同步、备份、双机凭证落点由它负责 |
-| 凭证与公开仓安全 | **security-baseline** | 立项/收尾只点"凭证要有处放、退役要吊销"，方法按它 |
-| 飞书空间/台账的实际创建 | **lark-wiki** / **lark-base** | 真要在飞书动手时调对应技能 |
-| 跨会话记忆、新会话接不上历史、找回"之前讨论/决定过什么" | **local-trajectory-recall** | 项目文档（HANDOFF/ADR/需求/工程记忆）是整理过的结论；要对原话、跨项目/跨天找回历史时调它查本机 trajectory（只本机自用、敏感不外传），不拿它替代文档结论 |
+#### 2. 规划（lifecycle/planning/）
+| 你遇到什么 | 用什么 |
+|---|---|
+| 要写PRD、BRD、系统要求、工作流等开头文档 | `lifecycle/planning/project-templates.md` |
+| 需求没说清，要拷问澄清 | `lifecycle/planning/idea-to-tickets/references/clarify.md` |
+| 要把需求写成带验收的规范 | `lifecycle/planning/idea-to-tickets/references/spec.md` |
+| 要把大任务拆成小工单 | `lifecycle/planning/idea-to-tickets/references/slice.md` |
+| 要把改动/方案讲清楚 | `lifecycle/planning/idea-to-tickets/references/explain.md` |
+| 要做角色分工 | `lifecycle/planning/idea-to-tickets/references/role-collaboration.md` |
 
-## 来源与边界
+#### 3. 执行（lifecycle/execution/）
+| 你遇到什么 | 用什么 |
+|---|---|
+| 要追踪进度、记问题 | `lifecycle/execution/status/active-ledger.md` |
+| 要留决策记录、存工程记忆 | `lifecycle/execution/memory/decision-memory.md` |
+| 要开新窗口交接 | `lifecycle/execution/handoff/handover-sop.md` |
+| 要派任务给另一个AI（任务交接书） | `lifecycle/execution/handoff/handover-sop.md` |
+| 交接活日志怎么写 | `lifecycle/execution/handoff/handoff.md` |
+| 要跑批量/并行长任务 | `lifecycle/execution/batch/batch-execution.md` |
+| 换新会话冷启动、批量改文件、怕漏改文档 | `lifecycle/execution/governance/execution-governance.md` |
 
-方法论来源（详见各 reference 末尾）：PMBOK 8 治理绩效域、PPM 四步流程、伯克利 BPM 项目状态、阶段门五领域、PARA/GTD，均做了减法默认轻量版。
+#### 4. 监控（lifecycle/monitor/）
+| 你遇到什么 | 用什么 |
+|---|---|
+| 定决策权、暂停条件、每周自查 | `lifecycle/monitor/monitor.md` |
+| 信息放哪、提交前检查、新窗口接手验收 | `lifecycle/monitor/maintenance-sop.md` |
 
-**不覆盖**：具体任务执行（交 idea-to-tickets 之后）；财务记账/投资决策本身；团队多人协作重型流程（CCB/PMO/签字流）；不替代 lark-wiki/lark-base 本身操作。
+#### 5. 收尾（lifecycle/close/）
+| 你遇到什么 | 用什么 |
+|---|---|
+| 项目做完/砍掉，要收尾、归档、复盘 | `lifecycle/close/close.md` |
+
+---
+
+### 二、工程规范（写代码/写文档）
+
+| 你遇到什么 | 用什么 |
+|---|---|
+| 要定命名规范 | `standards/naming-convention.md` |
+| 要定代码风格 | `standards/code-style.md` |
+| 要写文档指南 | `standards/documentation-guide.md` |
+| 要写 AGENTS.md | `standards/agents.md` |
+
+---
+
+### 三、技能类项目
+
+| 你遇到什么 | 用什么 |
+|---|---|
+| 要优化一个技能（目录、命名、SKILL.md、文档合并） | `skills/skill-optimization.md` |
+
+---
+
+## 砍掉了什么（个人用不上的企业级内容）
+
+- ❌ 变更分级 L0/L1/L2
+- ❌ RACI、健康灯等企业术语
+- ❌ 重型质量验证规范、状态查询协议
+- ❌ 干系人签字、预算结算等企业收尾流程
