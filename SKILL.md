@@ -1,4 +1,5 @@
 ---
+type: workflow
 name: project-manager
 description: 个人/小团队的轻量项目管理。覆盖项目全生命周期（启动、规划、执行、监控、收尾），并提供需求澄清到拆单（idea-to-tickets）、工程规范（命名/代码风格/文档/AGENTS）、文档评审与技能优化方法。适用于新项目立项、需求拆解、进度追踪、交接归档、文档与技能优化。纯方法论，跨平台通用。
 compatibility: 纯方法论，跨平台通用
